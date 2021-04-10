@@ -1,10 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { ChatHeader } from './ChatHeader'
+import { SendMassage } from './SendMassage'
+import { Talk } from './Talk'
+import { Flex } from './UI/Flex'
 
-const Chat = () => {
+export const Chat = () => {
     return (
-        <div>
-            <h1>chat</h1>
-        </div>
+        <Flex direction="column" flex=".75">
+            <ChatHeader />
+            <Talk />
+            <SendMassage />
+        </Flex>
     )
 }
-export default Chat

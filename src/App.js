@@ -1,22 +1,29 @@
 import React, { useContext } from 'react'
-import RouterApp from './components/RouterApp'
-import Nav from './components/Nav'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Context } from './index'
-import './App.css'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { Loader } from './components/Loader'
+import styled from 'styled-components'
+
+import { SideBar } from './components/SideBar'
+import { Chat } from './components/Chat'
+
+//Style//
+const AppWrapper = styled.div`
+    display: flex;
+    background-color: rgb(22, 33, 46);
+`
+//Style//
 
 function App() {
     const { auth } = useContext(Context)
     const [user, loading] = useAuthState(auth)
-    if (loading) {
-        return <Loader />
-    }
+
     return (
         <Router>
-            <Nav />
-            <RouterApp />
+            <AppWrapper>
+                <SideBar />
+                <Chat />
+            </AppWrapper>
         </Router>
     )
 }
