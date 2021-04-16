@@ -1,31 +1,23 @@
 import React, { useContext } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { Context } from './index'
+import { FirebaseContext } from './index'
 import { BrowserRouter as Router } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { SideBar } from './components/SideBar'
-import { Chat } from './components/Chat'
+import { Telegram } from './components/Telegram'
+import { Auth } from './components/Auth'
 
 //Style//
 const AppWrapper = styled.div`
-    display: flex;
     background-color: rgb(22, 33, 46);
+    height: 100vh;
 `
 //Style//
 
 function App() {
-    const { auth } = useContext(Context)
+    const { auth } = useContext(FirebaseContext)
     const [user, loading] = useAuthState(auth)
-
-    return (
-        <Router>
-            <AppWrapper>
-                <SideBar />
-                <Chat />
-            </AppWrapper>
-        </Router>
-    )
+    return <AppWrapper>{user ? <Telegram /> : <Auth />}</AppWrapper>
 }
 
 export default App

@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import firebase from 'firebase'
+
 import styled from 'styled-components'
+import { FirebaseContext } from '..'
 import { Flex } from './UI/Flex'
 //Style//
 const SendMassageSection = styled.div`
@@ -24,17 +28,41 @@ const Input = styled.input`
     outline: none;
     background-color: rgb(22, 33, 46);
     color: #fff;
-    flex: 0.9;
+    flex: 1;
     padding: 5px;
 `
 //Style//
 
 export const SendMassage = () => {
+    const { auth, firestore } = useContext(FirebaseContext)
+    const [user] = useAuthState(auth)
+
+    const [value, setValue] = useState('')
+
+    const sendMassageToFirestore = async () => {
+        firestore.collection('massages').add({
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            text: value,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        setValue('')
+    }
+
     return (
         <SendMassageSection>
             <Flex p="10px" justify="space-between" alignItems="center">
-                <Input type="text" placeholder="Write a massage" />
-                <i className="fab fa-telegram-plane"></i>
+                <Input
+                    onChange={(e) => setValue(e.target.value)}
+                    value={value}
+                    type="text"
+                    placeholder="Write a massage"
+                />
+                <i
+                    onClick={sendMassageToFirestore}
+                    className="fab fa-telegram-plane"
+                ></i>
             </Flex>
         </SendMassageSection>
     )

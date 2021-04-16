@@ -6,7 +6,7 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 import 'firebase/auth'
 
-export const Context = createContext(null)
+export const FirebaseContext = createContext(null)
 
 const firebaseConfig = {
     apiKey: 'AIzaSyDO0lX2EC_5ppmBrIXaf-FCYv49t0MpUdY',
@@ -23,7 +23,7 @@ const auth = firebase.auth()
 const firestore = firebase.firestore()
 
 ReactDOM.render(
-    <Context.Provider
+    <FirebaseContext.Provider
         value={{
             firebase,
             auth,
@@ -31,6 +31,6 @@ ReactDOM.render(
         }}
     >
         <App />
-    </Context.Provider>,
+    </FirebaseContext.Provider>,
     document.getElementById('root')
 )

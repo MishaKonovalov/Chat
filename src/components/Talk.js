@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+
 import { Massage } from './Massage'
 import { Flex } from './UI/Flex'
+import { FirebaseContext } from '../index'
+import { Loader } from './Loader'
 //Style//
 
 const TalkSection = styled.section`
@@ -13,35 +17,16 @@ const TalkSection = styled.section`
 //Style//
 
 export const Talk = () => {
-    const items = [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        3,
-        43434,
-        3434,
-        3434,
-        34,
-        34,
-        3,
-        34,
-        34,
-        34,
-        3,
-        34,
-        3,
-        4,
-        34,
-    ]
+    const { auth, firestore } = useContext(FirebaseContext)
+    const [massages, loading] = useCollectionData(
+        firestore.collection('massages').orderBy('createdAt')
+    )
+
     return (
         <TalkSection>
             <Flex direction="column" justify="end" m="70px 10px 0 10px">
-                {items.map((item) => (
-                    <Massage />
+                {massages?.map((item) => (
+                    <Massage massage={item} loading={loading} />
                 ))}
             </Flex>
         </TalkSection>
