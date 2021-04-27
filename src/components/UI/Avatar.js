@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const LoadingLogo = styled.i`
-    color: rgb(175, 175, 175, 0.2);
-    font-size: 50px;
-`
+// const LoadingLogo = styled.i`
+//     color: rgb(175, 175, 175, 0.2);
+//     font-size: 50px;
+// `
 const AvatarImg = styled.img`
     margin-right: 15px;
     padding: 0;

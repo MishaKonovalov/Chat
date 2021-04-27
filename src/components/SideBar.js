@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { FirebaseContext } from '..'
 import { Dialogues } from './Dialogues'
 import { SearchPanel } from './SearchPanel'
+// import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 //Style//
 const SideBarSection = styled.section`
@@ -15,10 +17,17 @@ const SideBarSection = styled.section`
 //Style//
 
 export const SideBar = () => {
+    const { auth, firestore } = useContext(FirebaseContext)
+    // const [massages, loading] = useCollectionData(
+
     return (
         <SideBarSection>
             <SearchPanel />
             <Dialogues />
+            <i
+                className="fas fa-sign-out-alt"
+                onClick={() => auth.signOut()}
+            ></i>
         </SideBarSection>
     )
 }

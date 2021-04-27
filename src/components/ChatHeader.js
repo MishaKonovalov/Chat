@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import avatar from '../img/avatar.jpeg'
+// import avatar from '../img/avatar.jpeg'
 import { Avatar } from './UI/Avatar'
 import { Flex } from './UI/Flex'
 
@@ -8,7 +8,6 @@ import { Flex } from './UI/Flex'
 
 const ChatHeaderSection = styled.section`
     width: 100%;
-    border-left: 1px solid rgb(30, 47, 66);
     border-bottom: 1px solid rgb(30, 47, 66);
     color: rgb(200, 200, 200);
     position: fixed;

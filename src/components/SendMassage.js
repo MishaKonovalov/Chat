@@ -40,7 +40,14 @@ export const SendMassage = () => {
     const [value, setValue] = useState('')
 
     const sendMassageToFirestore = async () => {
-        firestore.collection('massages').add({
+        await firestore.collection('users').doc(user.displayName).set({
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            text: value,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        await firestore.collection(user.displayName).add({
             uid: user.uid,
             displayName: user.displayName,
             photoURL: user.photoURL,

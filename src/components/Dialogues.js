@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import styled from 'styled-components'
-import avatar from '../img/avatar.jpeg'
+import { FirebaseContext } from '..'
 import { Avatar } from './UI/Avatar'
 import { Flex } from './UI/Flex'
 
@@ -39,21 +40,63 @@ const Datails = styled.div`
 
 export const Dialogues = () => {
     const items = [1, 2]
+    const { auth, firestore } = useContext(FirebaseContext)
+    const [users, loading] = useCollectionData(firestore.collection('users'))
+
+    // .doc('Y1HZMgE4VQdowLlirnAj')
+
+    // to.get()
+    //     .then((doc) => {
+    //         if (doc.exists) {
+    //             console.log('Document data:', doc.data())
+    //         } else {
+    //              doc.data() will be undefined in this case
+    //             console.log('No such document!')
+    //         }
+    //     })
+    //     .catch((error) => {
+    //         console.log('Error getting document:', error)
+    //     })
+    // .orderdBy('createdAt')
+    // .then((res) => console.log(res))
+    // )
+    // const users =
+
+    // .get()
+    // .then((res) => console.log(res.docs))
+    console.log(users)
+    // users
+    //     .then((doc) => {
+    //         if (doc.exists) {
+    //             console.log('Document data:', doc.data())
+    //         } else {
+    //             console.log('No such document!')
+    //         }
+    //     })
+    //     .catch((error) => {
+    //         console.log('Error getting document:', error)
+    //     })
+
     return (
         <Flex direction="column">
-            {items.map((item) => {
-                return (
-                    <Datails>
-                        <Avatar />
-                        <Flex justify="space-between" direction="column">
-                            <h5 className="title">NameName</h5>
-                            <p>Massage</p>
-                            <span className="time">18:00</span>
-                            <span className="massages">43</span>
-                        </Flex>
-                    </Datails>
-                )
-            })}
+            {loading ? (
+                <span>Подождите...</span>
+            ) : (
+                users.map(({ displayName, photoURL, text, createdAt }) => {
+                    console.log(new Date(1619458004))
+                    console.log(createdAt)
+                    return (
+                        <Datails>
+                            <Avatar src={photoURL} />
+                            <Flex justify="space-between" direction="column">
+                                <h5 className="title">{displayName}</h5>
+                                <p>{text}</p>
+                                <span className="time">18:00</span>
+                            </Flex>
+                        </Datails>
+                    )
+                })
+            )}
         </Flex>
     )
 }

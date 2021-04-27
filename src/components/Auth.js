@@ -25,10 +25,17 @@ const Button = styled.button`
 //Style//
 
 export const Auth = () => {
-    const { auth } = useContext(FirebaseContext)
+    const { auth, firestore } = useContext(FirebaseContext)
     const login = async () => {
         const provider = new firebase.auth.GoogleAuthProvider()
         const { user } = await auth.signInWithPopup(provider)
+        firestore.collection(user.displayName).add({
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            text: '',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
     }
     return (
         <Flex

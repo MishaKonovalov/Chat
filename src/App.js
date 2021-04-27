@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { FirebaseContext } from './index'
-import { BrowserRouter as Router } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { Telegram } from './components/Telegram'

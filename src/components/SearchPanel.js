@@ -19,13 +19,13 @@ const SearchPaenlSection = styled.div`
         text-align: center;
         color: inherit;
     }
-    &.fa-search {
+    .fa-search {
         position: absolute;
         top: 7px;
         bottom: 7px;
-        left: 35px;
+        left: 7px;
     }
-    &.fa-times-circle {
+    .fa-times-circle {
         position: absolute;
         top: 7px;
         bottom: 7px;
@@ -37,9 +37,6 @@ const SearchPaenlSection = styled.div`
         input {
             flex: 0.9;
             text-align: start;
-        }
-        .fa-search {
-            left: 4px;
         }
     }
 `

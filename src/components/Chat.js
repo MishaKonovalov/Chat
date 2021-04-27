@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ChatHeader } from './ChatHeader'
 import { SendMassage } from './SendMassage'
 import { Talk } from './Talk'
