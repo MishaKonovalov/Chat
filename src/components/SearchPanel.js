@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Flex } from './UI/Flex'
 //Style//
@@ -7,10 +8,11 @@ const SearchPaenlSection = styled.div`
     background-color: rgb(30, 47, 66);
     display: flex;
     justify-content: space-around;
-    margin: 10px;
+    margin: 21px 0;
     padding: 7px;
     border-radius: 5px;
     position: relative;
+
     input {
         flex: 1;
         background-color: inherit;
@@ -63,13 +65,17 @@ export const SearchPanel = () => {
     }
 
     return (
-        <Flex alignItems="center">
+        <Flex alignItems="center" justify="space-around">
             <SearchPaenlSection onClick={onClickHandler} className={active}>
                 <i className="fas fa-search"></i>
                 <input ref={inputEl} type="text" placeholder="Search" />
                 {!active ? null : <i className="fas fa-times-circle"></i>}
             </SearchPaenlSection>
-            {active ? null : <AditIcon className="fas fa-edit" />}
+            {active ? null : (
+                <Link to="/select">
+                    <AditIcon className="fas fa-edit" />
+                </Link>
+            )}
         </Flex>
     )
 }

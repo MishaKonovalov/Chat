@@ -4,7 +4,7 @@ import { Flex } from './UI/Flex'
 import firebase from 'firebase'
 import { FirebaseContext } from '../index'
 //Style//
-const Logo = styled.i`
+export const Logo = styled.i`
     color: rgb(2, 147, 234);
     font-size: 120px;
 `
@@ -29,7 +29,7 @@ export const Auth = () => {
     const login = async () => {
         const provider = new firebase.auth.GoogleAuthProvider()
         const { user } = await auth.signInWithPopup(provider)
-        firestore.collection(user.displayName).add({
+        firestore.collection('users').doc(user.displayName).set({
             uid: user.uid,
             displayName: user.displayName,
             photoURL: user.photoURL,
@@ -44,7 +44,7 @@ export const Auth = () => {
             alignItems="center"
             direction="column"
         >
-            <Logo className="fab fa-telegram"></Logo>
+            <Logo className="fab fa-telegram" />
             <Button onClick={login}>Sign in</Button>
         </Flex>
     )

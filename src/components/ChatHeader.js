@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { PersonContext } from './Chat'
 // import avatar from '../img/avatar.jpeg'
 import { Avatar } from './UI/Avatar'
 import { Flex } from './UI/Flex'
@@ -21,12 +22,13 @@ const ChatHeaderSection = styled.section`
 //Style//
 
 export const ChatHeader = () => {
+    const person = useContext(PersonContext)
     return (
         <ChatHeaderSection>
             <Flex m="10px">
-                <Avatar />
+                <Avatar src={person?.photoURL} />
                 <Flex direction="column" justify="center">
-                    <h5>Name</h5>
+                    <h5>{person?.displayName}</h5>
                     <span className="time">last seen 6 min ago</span>
                 </Flex>
             </Flex>

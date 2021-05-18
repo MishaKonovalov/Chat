@@ -1,10 +1,16 @@
 import React, { createContext } from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+
 import './index.css'
 import App from './App'
 import firebase from 'firebase'
 import 'firebase/firestore'
 import 'firebase/auth'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { applyMiddleware, createStore } from 'redux'
+import thunk from 'redux-thunk'
+import { reducer } from './store/reducer'
 
 export const FirebaseContext = createContext(null)
 
@@ -21,16 +27,24 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 const auth = firebase.auth()
 const firestore = firebase.firestore()
+const store = createStore(reducer, applyMiddleware(thunk))
+const windowInnerWidth = document.documentElement.clientWidth
 
 ReactDOM.render(
-    <FirebaseContext.Provider
-        value={{
-            firebase,
-            auth,
-            firestore,
-        }}
-    >
-        <App />
-    </FirebaseContext.Provider>,
+    <Provider store={store}>
+        <FirebaseContext.Provider
+            value={{
+                firebase,
+                auth,
+                firestore,
+                windowInnerWidth,
+            }}
+        >
+            <Router>
+                <App />
+            </Router>
+        </FirebaseContext.Provider>
+        ,
+    </Provider>,
     document.getElementById('root')
 )

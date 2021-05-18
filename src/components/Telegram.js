@@ -1,5 +1,6 @@
 import React from 'react'
-import { Chat } from './Chat'
+import { Routes } from './Routes'
+
 import { SideBar } from './SideBar'
 import { Flex } from './UI/Flex'
 
@@ -7,7 +8,7 @@ export const Telegram = () => {
     return (
         <Flex>
             <SideBar />
-            <Chat />
+            <Routes />
         </Flex>
     )
 }
