@@ -7,8 +7,8 @@ import { FirebaseContext } from '..'
 import { ChatHeader } from './ChatHeader'
 import { SendMassage } from './SendMassage'
 import { Talk } from './Talk'
-// import { Talk } from './Talk'
-import { Flex } from './UI/Flex'
+import { MobileVersionContext } from './Telegram'
+
 function sliceString(string) {
     const arr = string.slice(1).split('')
     const i = arr.findIndex(
@@ -20,19 +20,28 @@ function sliceString(string) {
 
 export const PersonContext = createContext(null)
 
+const ChatSection = styled.section`
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 805px) {
+        display: ${(props) => (!props.showSideBar ? null : 'none')};
+        width: 100%;
+    }
+`
 const Chat = (props) => {
     const name = sliceString(props.match.path)
-
+    const { showSideBar } = useContext(MobileVersionContext)
     const { firestore } = useContext(FirebaseContext)
     const [person] = useDocumentData(firestore.collection('users').doc(name))
 
     return (
         <PersonContext.Provider value={person}>
-            <Flex direction="column">
+            <ChatSection showSideBar={showSideBar}>
                 <ChatHeader />
                 <Talk />
                 <SendMassage />
-            </Flex>
+            </ChatSection>
         </PersonContext.Provider>
     )
 }

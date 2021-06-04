@@ -28,7 +28,6 @@ firebase.initializeApp(firebaseConfig)
 const auth = firebase.auth()
 const firestore = firebase.firestore()
 const store = createStore(reducer, applyMiddleware(thunk))
-const windowInnerWidth = document.documentElement.clientWidth
 
 ReactDOM.render(
     <Provider store={store}>
@@ -37,14 +36,12 @@ ReactDOM.render(
                 firebase,
                 auth,
                 firestore,
-                windowInnerWidth,
             }}
         >
             <Router>
                 <App />
             </Router>
         </FirebaseContext.Provider>
-        ,
     </Provider>,
     document.getElementById('root')
 )

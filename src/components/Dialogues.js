@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { DialoguesContext } from '../App'
+import { MobileVersionContext } from './Telegram'
 import { Avatar } from './UI/Avatar'
 import { Flex } from './UI/Flex'
 
@@ -22,17 +23,9 @@ const Datails = styled.div`
     }
     h5 {
         font-weight: 800;
+        padding-right: 40px;
     }
-    .massages {
-        position: absolute;
-        bottom: 2px;
-        right: 2px;
-        font-size: 13px;
-        background-color: rgb(174, 194, 215);
-        border-radius: 30%;
-        color: rgb(22, 33, 46);
-        padding: 5px;
-    }
+
     .time {
         position: absolute;
         top: 2px;
@@ -50,20 +43,27 @@ const DialoguesSection = styled.div`
 //Style//
 
 export const Dialogues = () => {
-    const dialogues = useContext(DialoguesContext)
+    const { toggleShowSideBar } = useContext(MobileVersionContext)
+
+    const { dialogues } = useContext(DialoguesContext)
     return (
         <DialoguesSection>
             <Flex direction="column">
                 {dialogues?.map(
-                    ({ displayName, photoURL, text, createdAt }) => {
+                    ({ displayName, photoURL, text, createdAt, uid }) => {
+                        const date = new Date(
+                            createdAt?.toDate()
+                        ).toLocaleTimeString()
+
                         const slicedText =
-                            text.length > 25 ? text.slice(0, 25) + '...' : text
+                            text?.length > 25 ? text.slice(0, 25) + '...' : text
 
                         return (
                             <NavLink
+                                onClick={() => toggleShowSideBar(false)}
                                 style={{ textDecoration: 'none' }}
                                 to={`/${displayName.split(' ').join('')}`}
-                                key={createdAt}
+                                key={uid}
                             >
                                 <Datails>
                                     <Avatar src={photoURL} />
@@ -73,7 +73,7 @@ export const Dialogues = () => {
                                     >
                                         <h5 className="title">{displayName}</h5>
                                         <p>{slicedText}</p>
-                                        <span className="time">18:00</span>
+                                        <span className="time">{date}</span>
                                     </Flex>
                                 </Datails>
                             </NavLink>

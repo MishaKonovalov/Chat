@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { FirebaseContext } from '..'
 import { Avatar } from './UI/Avatar'
 import { Flex } from './UI/Flex'
-//STYLE//
+//STYLE// 805px
 const SideBarFooterSection = styled.div`
     position: fixed;
     width: 25%;
@@ -12,6 +12,7 @@ const SideBarFooterSection = styled.div`
     left: 0;
     border-top: 1px solid rgb(30, 47, 66);
     background-color: rgb(30, 47, 66);
+    z-index: 99;
     i {
         font-size: 20px;
         margin: 5px;
@@ -19,6 +20,9 @@ const SideBarFooterSection = styled.div`
         :hover {
             color: rgb(2, 147, 234);
         }
+    }
+    @media (max-width: 805px) {
+        width: 100%;
     }
 `
 
@@ -29,12 +33,7 @@ export const SideBarFooter = () => {
 
     return (
         <SideBarFooterSection>
-            <Flex
-                flex="0.25"
-                justify="space-between"
-                alignItems="center"
-                m="8px 15px 8px 15px"
-            >
+            <Flex justify="space-between" alignItems="center" p="8px">
                 <Avatar src={user?.photoURL} />
 
                 <i

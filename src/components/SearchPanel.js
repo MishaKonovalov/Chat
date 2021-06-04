@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { DialoguesContext } from '../App'
 import { Flex } from './UI/Flex'
 //Style//
 const SearchPaenlSection = styled.div`
@@ -54,6 +55,8 @@ const AditIcon = styled.i`
 export const SearchPanel = () => {
     const [active, setActiveSerchPanel] = useState(false)
     const inputEl = useRef(null)
+    const { setValue, value } = useContext(DialoguesContext)
+
     const onClickHandler = (e) => {
         if (e.target.className === 'fas fa-times-circle') {
             setActiveSerchPanel(false)
@@ -68,8 +71,19 @@ export const SearchPanel = () => {
         <Flex alignItems="center" justify="space-around">
             <SearchPaenlSection onClick={onClickHandler} className={active}>
                 <i className="fas fa-search"></i>
-                <input ref={inputEl} type="text" placeholder="Search" />
-                {!active ? null : <i className="fas fa-times-circle"></i>}
+                <input
+                    ref={inputEl}
+                    type="text"
+                    placeholder="Search"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                />
+                {!active ? null : (
+                    <i
+                        className="fas fa-times-circle"
+                        onClick={() => setValue('')}
+                    ></i>
+                )}
             </SearchPaenlSection>
             {active ? null : (
                 <Link to="/select">

@@ -8,12 +8,14 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: rgb(22, 33, 46);
 }
-#root {
-    overflow-x: hidden !important;
-}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
+}
+.root {
+    overflow-y: hidden;
+    max-height: 100%;
 }
 * {
     margin: 0;

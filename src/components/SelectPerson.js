@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Link } from 'react-router-dom'
@@ -8,7 +8,19 @@ import { Avatar } from './UI/Avatar'
 import firebase from 'firebase'
 import { Flex } from './UI/Flex'
 import { DialoguesContext } from '../App'
+import { MobileVersionContext } from './Telegram'
 //STYLE//
+const SelectPersonSection = styled.section`
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px 20px 20px;
+    flex: 1;
+
+    @media (max-width: 805px) {
+        /* display: ${(props) => (!props.showSideBar ? null : 'none')}; */
+        width: 100%;
+    }
+`
 const PersonList = styled.ul`
     list-style: none;
     color: #fff;
@@ -32,10 +44,13 @@ const Icon = styled.i`
 //STYLE//
 export const SelectPerson = () => {
     const { firestore, auth } = useContext(FirebaseContext)
+    const { showSideBar, toggleShowSideBar } = useContext(MobileVersionContext)
     const [user] = useAuthState(auth)
-    const dialogues = useContext(DialoguesContext)
+    const { dialogues } = useContext(DialoguesContext)
     const [persons] = useCollectionData(firestore.collection('users'))
-
+    useEffect(() => {
+        toggleShowSideBar(false)
+    })
     const addDialogues = async ({ uid, displayName, photoURL }) => {
         const checkDialoes = dialogues?.some((item) => item.uid === user.uid)
         if (!checkDialoes) {
@@ -63,8 +78,9 @@ export const SelectPerson = () => {
                 })
         }
     }
+    console.log(persons)
     return (
-        <Flex direction="column" p="0 20px 20px 20px">
+        <SelectPersonSection showSideBar={showSideBar}>
             <Flex flex="0" m="15px" justify="space-between">
                 <Link to="/">
                     <Icon className="fas fa-chevron-left"></Icon>
@@ -72,18 +88,20 @@ export const SelectPerson = () => {
                 <Paragraph>Всего пользователей: {persons?.length}</Paragraph>
             </Flex>
             <PersonList>
-                {persons?.map((person, item) => {
+                {persons?.map((person, i) => {
                     return (
-                        <Person onClick={() => addDialogues(person)}>
-                            <Avatar src={person.photoURL} />
+                        <Person
+                            onClick={() => addDialogues(person)}
+                            key={person.uid + i}
+                        >
+                            <Avatar src={person?.photoURL} />
                             <Flex direction="column" justify="center" p="5px">
-                                <h5>{person.displayName}</h5>
-                                <span>18:00</span>
+                                <h5>{person?.displayName}</h5>
                             </Flex>
                         </Person>
                     )
                 })}
             </PersonList>
-        </Flex>
+        </SelectPersonSection>
     )
 }

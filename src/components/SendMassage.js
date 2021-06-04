@@ -11,10 +11,13 @@ const SendMassageSection = styled.div`
     border-top: 1px solid rgb(30, 47, 66);
     background-color: rgb(22, 33, 46);
     max-height: 67px;
+    width: 75%;
     position: fixed;
-    left: 25%;
     bottom: 0;
     right: 0;
+    @media (max-width: 805px) {
+        width: 100%;
+    }
     i {
         font-size: 25px;
         margin: 5px;
@@ -34,116 +37,125 @@ const Input = styled.input`
     font-size: 15px;
 `
 //Style//
-
 export const SendMassage = () => {
     const { auth, firestore } = useContext(FirebaseContext)
     const person = useContext(PersonContext)
     const [user] = useAuthState(auth)
-
     const [value, setValue] = useState('')
 
-    const sendMassageToFirestore = () => {
-        if (user.uid === person.uid) {
-            firestore
-                .collection('users')
-                .doc(user.displayName)
-                .collection('dialogues')
-                .doc(user.displayName)
-                .set({
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                    text: value,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                })
+    const sendMassageToFirestore = (e) => {
+        e.preventDefault()
+        if (value.length > 0) {
+            if (user.uid === person.uid) {
+                firestore
+                    .collection('users')
+                    .doc(user.displayName)
+                    .collection('dialogues')
+                    .doc(user.displayName)
+                    .set({
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        text: value,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                    })
 
-            firestore
-                .collection('users')
-                .doc(user.displayName)
-                .collection('dialogues')
-                .doc(user.displayName)
-                .collection('massages')
-                .add({
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                    text: value,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                })
-        } else {
-            firestore
-                .collection('users')
-                .doc(person.displayName)
-                .collection('dialogues')
-                .doc(user.displayName)
+                firestore
+                    .collection('users')
+                    .doc(user.displayName)
+                    .collection('dialogues')
+                    .doc(user.displayName)
+                    .collection('massages')
+                    .add({
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        text: value,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                    })
+            } else {
+                firestore
+                    .collection('users')
+                    .doc(person.displayName)
+                    .collection('dialogues')
+                    .doc(user.displayName)
 
-                .set({
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                    text: value,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                })
+                    .set({
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        text: value,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                    })
 
-            firestore
-                .collection('users')
-                .doc(user.displayName)
-                .collection('dialogues')
-                .doc(person.displayName)
-                .set({
-                    uid: person.uid,
-                    displayName: person.displayName,
-                    photoURL: person.photoURL,
-                    text: value,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                })
+                firestore
+                    .collection('users')
+                    .doc(user.displayName)
+                    .collection('dialogues')
+                    .doc(person.displayName)
+                    .set({
+                        uid: person.uid,
+                        displayName: person.displayName,
+                        photoURL: person.photoURL,
+                        text: value,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                    })
 
-            firestore
-                .collection('users')
-                .doc(user.displayName)
-                .collection('dialogues')
-                .doc(person.displayName)
-                .collection('massages')
-                .add({
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                    text: value,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                })
+                firestore
+                    .collection('users')
+                    .doc(user.displayName)
+                    .collection('dialogues')
+                    .doc(person.displayName)
+                    .collection('massages')
+                    .add({
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        text: value,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                    })
 
-            firestore
-                .collection('users')
-                .doc(person.displayName)
-                .collection('dialogues')
-                .doc(user.displayName)
-                .collection('massages')
-                .add({
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                    text: value,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                })
+                firestore
+                    .collection('users')
+                    .doc(person.displayName)
+                    .collection('dialogues')
+                    .doc(user.displayName)
+                    .collection('massages')
+                    .add({
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        text: value,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                    })
+            }
+
+            setValue('')
         }
-
-        setValue('')
     }
 
     return (
         <SendMassageSection>
-            <Flex p="17px" justify="space-between" alignItems="center">
-                <Input
-                    onChange={(e) => setValue(e.target.value)}
-                    value={value}
-                    type="text"
-                    placeholder="Write a massage"
-                />
-                <i
-                    onClick={sendMassageToFirestore}
-                    className="fab fa-telegram-plane"
-                ></i>
-            </Flex>
+            <form onSubmit={sendMassageToFirestore}>
+                <Flex p="17px" justify="space-between" alignItems="center">
+                    <Input
+                        onChange={(e) => setValue(e.target.value)}
+                        value={value}
+                        type="text"
+                        placeholder="Write a massage"
+                    />
+                    <i
+                        onClick={sendMassageToFirestore}
+                        className="fab fa-telegram-plane"
+                    ></i>
+                </Flex>
+            </form>
         </SendMassageSection>
     )
 }
