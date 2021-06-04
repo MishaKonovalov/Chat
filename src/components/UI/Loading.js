@@ -1,6 +1,5 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Flex } from './Flex'
 //Styles//
 const LoadingSection = styled.section`
     display: flex;

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
-import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+
+import { NavLink } from 'react-router-dom'
 import { DialoguesContext } from '../App'
 import { MobileVersionContext } from './Telegram'
 import { Avatar } from './UI/Avatar'
@@ -44,8 +45,8 @@ const DialoguesSection = styled.div`
 
 export const Dialogues = () => {
     const { toggleShowSideBar } = useContext(MobileVersionContext)
-
     const { dialogues } = useContext(DialoguesContext)
+
     return (
         <DialoguesSection>
             <Flex direction="column">

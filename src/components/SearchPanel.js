@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+
 import { DialoguesContext } from '../App'
 import { Flex } from './UI/Flex'
 //Style//

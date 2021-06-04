@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
 import styled, { css } from 'styled-components'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { FirebaseContext } from '..'
 
 //Style//

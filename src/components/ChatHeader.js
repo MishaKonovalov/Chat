@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+
 import { PersonContext } from './Chat'
 import { MobileVersionContext } from './Telegram'
-// import avatar from '../img/avatar.jpeg'
 import { Avatar } from './UI/Avatar'
 import { Flex } from './UI/Flex'
 

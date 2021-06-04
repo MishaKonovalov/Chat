@@ -1,15 +1,13 @@
 import React, { useContext } from 'react'
 import { Route, Switch } from 'react-router'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
-import { FirebaseContext } from '..'
 import Chat from './Chat'
 import { EmptyPage } from './EmptyPage'
 import { SelectPerson } from './SelectPerson'
+import { DialoguesContext } from '../App'
 
 export const Routes = () => {
-    const { firestore } = useContext(FirebaseContext)
+    const { dialogues } = useContext(DialoguesContext)
 
-    const [dialogues] = useCollectionData(firestore.collection('users'))
     return (
         <Switch>
             {dialogues?.map((route, i) => {

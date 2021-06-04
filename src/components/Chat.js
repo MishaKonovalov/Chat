@@ -1,13 +1,14 @@
 import React, { createContext, useContext } from 'react'
+import styled from 'styled-components'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { withRouter } from 'react-router'
-import styled from 'styled-components'
+
+import { MobileVersionContext } from './Telegram'
 import { FirebaseContext } from '..'
 
 import { ChatHeader } from './ChatHeader'
 import { SendMassage } from './SendMassage'
 import { Talk } from './Talk'
-import { MobileVersionContext } from './Telegram'
 
 function sliceString(string) {
     const arr = string.slice(1).split('')

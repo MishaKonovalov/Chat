@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
 import styled from 'styled-components'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { FirebaseContext } from '..'
+
 import { Avatar } from './UI/Avatar'
 import { Flex } from './UI/Flex'
 //STYLE// 805px

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react'
+import styled from 'styled-components'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import firebase from 'firebase'
+
 import { FirebaseContext } from '..'
 import { Avatar } from './UI/Avatar'
-import firebase from 'firebase'
 import { Flex } from './UI/Flex'
 import { DialoguesContext } from '../App'
 import { MobileVersionContext } from './Telegram'
@@ -17,7 +18,6 @@ const SelectPersonSection = styled.section`
     flex: 1;
 
     @media (max-width: 805px) {
-        /* display: ${(props) => (!props.showSideBar ? null : 'none')}; */
         width: 100%;
     }
 `
@@ -78,7 +78,7 @@ export const SelectPerson = () => {
                 })
         }
     }
-    console.log(persons)
+
     return (
         <SelectPersonSection showSideBar={showSideBar}>
             <Flex flex="0" m="15px" justify="space-between">

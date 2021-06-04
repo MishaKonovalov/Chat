@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { Flex } from './UI/Flex'
 import firebase from 'firebase'
+
+import { Flex } from './UI/Flex'
 import { FirebaseContext } from '../index'
 //Style//
 export const Logo = styled.i`

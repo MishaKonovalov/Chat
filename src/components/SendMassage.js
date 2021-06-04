@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
+import styled from 'styled-components'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import firebase from 'firebase'
 
-import styled from 'styled-components'
 import { FirebaseContext } from '..'
 import { Flex } from './UI/Flex'
 import { PersonContext } from './Chat'
